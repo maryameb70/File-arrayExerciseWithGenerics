@@ -76,7 +76,6 @@ public class GenericArrayRepository<T extends Base> implements GenericAllReposit
 
         if (element != null) {
             for (int i = 0; i < elements.length; i++) {
-                System.out.println(Arrays.toString(elements));
                 remove(element);
             }
         }

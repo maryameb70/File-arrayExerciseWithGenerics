@@ -17,11 +17,11 @@ public class Main {
         Base num3 = new Base();
         num3.setId(3);
         Base num4 = new Base();
-        num4.setId(2);
+        num4.setId(4);
         Base num5 = new Base();
-        num5.setId(10);
+        num5.setId(2);
         Base num6 = new Base();
-        num6.setId(2);
+        num6.setId(5);
         genericRepository.add(num1);
         genericRepository.add(num2);
         genericRepository.add(num3);
