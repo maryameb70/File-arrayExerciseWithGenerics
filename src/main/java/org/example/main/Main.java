@@ -65,6 +65,6 @@ public class Main {
         System.out.println("File content after deletion:");
         genericFileRepository.print();
         genericFileRepository.deleteContent();
-        // genericFileRepository.removeFile();
+        genericFileRepository.removeFile();
     }
 }
