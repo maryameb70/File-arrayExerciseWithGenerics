@@ -5,10 +5,12 @@ import org.example.genericrepository.GenericArrayRepository;
 import org.example.genericrepository.GenericFileRepository;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         //Array practice
+
         GenericArrayRepository<Base> genericRepository = new GenericArrayRepository<>();
         Base num1 = new Base();
         num1.setId(1);
@@ -17,7 +19,7 @@ public class Main {
         Base num3 = new Base();
         num3.setId(3);
         Base num4 = new Base();
-        num4.setId(4);
+        num4.setId(2);
         Base num5 = new Base();
         num5.setId(2);
         Base num6 = new Base();
@@ -28,24 +30,25 @@ public class Main {
         genericRepository.add(num4);
         genericRepository.add(num5);
         genericRepository.add(num6);
+        System.out.println("Array elements:");
         genericRepository.print();
-
+        System.out.println("Print the value of the selected element with index:" + genericRepository.get(1).getId());
+        System.out.println(("Print the value of the selected element with id:" + genericRepository.getById(num4)));
         genericRepository.remove(4);
-        // genericRepository.remove(num1);
-        genericRepository.removeAllElement(num2); //?
+        genericRepository.remove(num1);
+        genericRepository.removeAllElement(num2);
         System.out.println("The array after remove:");
         genericRepository.print();
         genericRepository.update(0, new Base(8));
         System.out.println("The array after update:");
         genericRepository.print();
-//        System.out.println();
         System.out.println("The index of the First Element in the Array:" + genericRepository.find(num6));
-        System.out.println("print index of find Element:" + genericRepository.findFirstById(num6));
-        System.out.println("getByIndex:"+genericRepository.get(5));
-        System.out.println(("getById:"+genericRepository.getById(num6)));
-        System.out.println(genericRepository.contain(num6));
-       // System.out.println("subElements:"+genericRepository.subElements(0,2));
-       // System.out.println(genericRepository.subElementsGeneric(0,2));
+        System.out.println("print index of find Element in the Array:" + genericRepository.findFirstById(num6));
+        System.out.println("Print the existence of an element in the array:" + genericRepository.contain(num6));
+//        System.out.println("subElements:" + Arrays.toString(genericRepository.subElements(0, 2)));
+//        System.out.println(genericRepository.subElementsGeneric(0, 2));
+        //genericRepository.deleteContent();
+
 
         //File practice
         GenericFileRepository<String> genericFileRepository = new GenericFileRepository("myFile");
@@ -57,12 +60,13 @@ public class Main {
         genericFileRepository.add("by");
         System.out.println("File content:");
         genericFileRepository.print();
-        System.out.println("The content of the desired line number in the file:"+genericFileRepository.get(1));
+        System.out.println("The content of the desired line number in the file:" + genericFileRepository.get(1));
         System.out.println("The line number of the desired content in the file:" + genericFileRepository.find("hello"));
         genericFileRepository.remove("good");
         genericFileRepository.remove(3);
         System.out.println("File content after deletion:");
         genericFileRepository.print();
-        //  genericFileRepository.clear();
+        genericFileRepository.deleteContent();
+        // genericFileRepository.removeFile();
     }
 }

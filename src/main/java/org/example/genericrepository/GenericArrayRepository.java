@@ -4,7 +4,7 @@ import org.example.base.Base;
 
 import java.util.Arrays;
 
-public class GenericArrayRepository<T extends Base> implements GenericAllRepository<T> {
+public class GenericArrayRepository<T extends Base> implements GenericAllRepository<T>, ArrayRepository<T> {
 
     private Base[] elements;
     private int emptyIndex = 0;
@@ -29,6 +29,13 @@ public class GenericArrayRepository<T extends Base> implements GenericAllReposit
         return (T) elements[index];
     }
 
+    public Integer getById(T id) {
+        for (int i = 0; i < elements.length; i++) {
+            if (elements[i] != null && elements[i] == id)
+                return (Integer) elements[i].getId();
+        }
+        return null;
+    }
 
     @Override
     public void add(T element) {
@@ -40,6 +47,7 @@ public class GenericArrayRepository<T extends Base> implements GenericAllReposit
         }
     }
 
+    @Override
     public void add(T[] arr) {
         if (arr != null) {
             for (T value : arr) {
@@ -90,7 +98,7 @@ public class GenericArrayRepository<T extends Base> implements GenericAllReposit
     }
 
     @Override
-    public void clear() {
+    public void deleteContent() {
         emptyIndex = 0;
         elements = new Base[emptyIndex];
     }
@@ -137,19 +145,11 @@ public class GenericArrayRepository<T extends Base> implements GenericAllReposit
         return false;
     }
 
-    public Integer getById(T id) {
-        for (int i = 0; i < elements.length; i++) {
-            if (elements[i] != null && elements[i].getId().equals(id))
-                return (Integer) elements[i].getId();
-        }
-        return null;
-    }
-
     public T[] subElements(int from, int to) {
         if (from < 0 || from > to || to >= elements.length) {
             return null;
         }
-        Object[] temp = new Object[to - from + 1];
+        Base[] temp = new Base[to - from + 1];
         int index = 0;
         for (int i = from; i <= to; i++) {
             temp[index++] = elements[i];

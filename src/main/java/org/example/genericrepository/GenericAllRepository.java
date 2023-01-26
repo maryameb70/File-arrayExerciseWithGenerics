@@ -2,6 +2,8 @@ package org.example.genericrepository;
 
 import org.example.base.Base;
 
+import java.io.IOException;
+
 public interface GenericAllRepository<T> {
 
     T get(int index);
@@ -12,6 +14,6 @@ public interface GenericAllRepository<T> {
     void shift(int index);
     Boolean contain(T element);
     void print();
-    void clear();
+    void deleteContent();
 
 }
