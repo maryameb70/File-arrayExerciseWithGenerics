@@ -46,8 +46,7 @@ public class Main {
         System.out.println("Print the existence of an element in the array:" + genericRepository.contain(num6));
 //        System.out.println("subElements:" + Arrays.toString(genericRepository.subElements(0, 2)));
 //        System.out.println(genericRepository.subElementsGeneric(0, 2));
-        //genericRepository.deleteContent();
-
+        genericRepository.deleteContent();
 
         //File practice
         GenericFileRepository<String> genericFileRepository = new GenericFileRepository("myFile");
