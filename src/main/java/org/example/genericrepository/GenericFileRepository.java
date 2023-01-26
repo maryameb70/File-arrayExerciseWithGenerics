@@ -1,7 +1,6 @@
 package org.example.genericrepository;
 
 import java.io.*;
-import java.util.Scanner;
 
 public class GenericFileRepository<T> implements GenericAllRepository<T> {
     private String fileName;

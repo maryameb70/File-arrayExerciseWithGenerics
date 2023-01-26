@@ -5,7 +5,6 @@ import org.example.genericrepository.GenericArrayRepository;
 import org.example.genericrepository.GenericFileRepository;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {

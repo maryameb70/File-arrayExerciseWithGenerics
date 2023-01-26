@@ -1,9 +1,5 @@
 package org.example.genericrepository;
 
-import org.example.base.Base;
-
-import java.io.IOException;
-
 public interface GenericAllRepository<T> {
 
     T get(int index);

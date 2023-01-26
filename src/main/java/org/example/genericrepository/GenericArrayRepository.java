@@ -2,8 +2,6 @@ package org.example.genericrepository;
 
 import org.example.base.Base;
 
-import java.util.Arrays;
-
 public class GenericArrayRepository<T extends Base> implements GenericAllRepository<T>, ArrayRepository<T> {
 
     private Base[] elements;
