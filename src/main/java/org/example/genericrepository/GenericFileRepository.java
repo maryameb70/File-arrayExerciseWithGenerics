@@ -3,30 +3,28 @@ package org.example.genericrepository;
 import java.io.*;
 
 public class GenericFileRepository<T> implements GenericAllRepository<T> {
-    private String fileName;
-    private File file;
+    private final File file;
     private Integer indexLine = 0;
 
     public GenericFileRepository(String fileName) {
-        this.fileName = fileName;
         file = new File(fileName);
     }
 
     @Override
     public T get(int index) {
-        int line = 0;
+        int line = 1;
         String currentLine;
         try (FileReader fileReader = new FileReader(file);
              BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             while ((currentLine = bufferedReader.readLine()) != null) {
-                line++;
                 if (index == line) {
                     break;
                 }
+                line++;
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Exception in file writing", e);
+            throw new RuntimeException(String.format("Exception in file getting line%s", e));
         }
         return (T) currentLine;
     }
@@ -38,7 +36,7 @@ public class GenericFileRepository<T> implements GenericAllRepository<T> {
             bufferedWriter.flush();
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException("Exception in file writing", e);
+            throw new RuntimeException(String.format("Exception in file writing%s", e));
         }
     }
 
@@ -109,16 +107,17 @@ public class GenericFileRepository<T> implements GenericAllRepository<T> {
 
     @Override
     public void print() {
+        String lineContent;
+        String allContentFile = "";
         try (FileReader fileReader = new FileReader(file); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-            String line;
-            String s = "";
-            while ((line = bufferedReader.readLine()) != null) {
-                s += line + "\n";
+            while ((lineContent = bufferedReader.readLine()) != null) {
+                allContentFile += lineContent + "\n";
             }
-            System.out.println(s);
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException("Exception in file writing", e);
+            throw new RuntimeException("Exception in file printing", e);
+        } finally {
+            System.out.println(allContentFile);
         }
     }
 
