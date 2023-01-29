@@ -69,12 +69,12 @@ public class Main {
         System.out.println("sub-element:");
         //System.out.println(Arrays.toString(genericRepository.subElements(0, 2)));
         genericRepository.subElementsGeneric(0, 2).print();
-        System.out.println("before clear");
+        System.out.println("before clear:");
         genericRepository.print();
         genericRepository.deleteContent();
         System.out.println("after clear:");
         genericRepository.print();
-
+        System.out.println("------------------");
         //File practice
         GenericFileRepository<String> genericFileRepository = new GenericFileRepository("myFile");
         genericFileRepository.add("hello");

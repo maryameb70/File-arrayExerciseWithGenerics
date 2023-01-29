@@ -108,16 +108,16 @@ public class GenericFileRepository<T> implements GenericAllRepository<T> {
     @Override
     public void print() {
         String lineContent;
-        String allContentFile = "";
+        StringBuilder stringBuilder = new StringBuilder();
         try (FileReader fileReader = new FileReader(file); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             while ((lineContent = bufferedReader.readLine()) != null) {
-                allContentFile += lineContent + "\n";
+                stringBuilder.append(lineContent + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("Exception in file printing", e);
         } finally {
-            System.out.println(allContentFile);
+            System.out.println(stringBuilder);
         }
     }
 
