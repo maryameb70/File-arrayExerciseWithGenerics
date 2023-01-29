@@ -3,11 +3,12 @@ package org.example.main;
 import org.example.base.Base;
 import org.example.genericrepository.GenericArrayRepository;
 import org.example.genericrepository.GenericFileRepository;
+import org.example.genericrepository.InvalidIndexException;
 
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InvalidIndexException {
         //Array practice
 
         GenericArrayRepository<Base> genericRepository = new GenericArrayRepository<>();
@@ -31,22 +32,48 @@ public class Main {
         genericRepository.add(num6);
         System.out.println("Array elements:");
         genericRepository.print();
-        System.out.println("Print the value of the selected element with index:" + genericRepository.get(1).getId());
+        try {
+            System.out.println("Print the value of the selected element with index:" + genericRepository.get(1).getId());
+        } catch (InvalidIndexException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println(("Print the value of the selected element with id:" + genericRepository.getById(num4)));
-        genericRepository.remove(4);
-        genericRepository.remove(num1);
-        genericRepository.removeAllElement(num2);
+        try {
+            genericRepository.remove(4);
+        } catch (InvalidIndexException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            genericRepository.remove(num1);
+        } catch (InvalidIndexException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            genericRepository.removeAllElement(num2);
+        } catch (InvalidIndexException e) {
+            System.out.println(e);
+        }
         System.out.println("The array after remove:");
         genericRepository.print();
-        genericRepository.update(0, new Base(8));
+        try {
+            genericRepository.update(0, new Base(8));
+        } catch (InvalidIndexException e) {
+            throw new RuntimeException(e);
+        }
+
         System.out.println("The array after update:");
         genericRepository.print();
         System.out.println("The index of the First Element in the Array:" + genericRepository.find(num6));
         System.out.println("print index of find Element in the Array:" + genericRepository.findFirstById(num6));
         System.out.println("Print the existence of an element in the array:" + genericRepository.contain(num6));
-//        System.out.println("subElements:" + Arrays.toString(genericRepository.subElements(0, 2)));
-//        System.out.println(genericRepository.subElementsGeneric(0, 2));
+        System.out.println("sub-element:");
+        //System.out.println(Arrays.toString(genericRepository.subElements(0, 2)));
+        genericRepository.subElementsGeneric(0, 2).print();
+        System.out.println("before clear");
+        genericRepository.print();
         genericRepository.deleteContent();
+        System.out.println("after clear:");
+        genericRepository.print();
 
         //File practice
         GenericFileRepository<String> genericFileRepository = new GenericFileRepository("myFile");

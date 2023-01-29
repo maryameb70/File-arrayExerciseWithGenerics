@@ -20,9 +20,9 @@ public class GenericArrayRepository<T extends Base> implements GenericAllReposit
     }
 
     @Override
-    public T get(int index) {
+    public T get(int index) throws InvalidIndexException {
         if (isIndexInvalid(index)) {
-            return null;
+            throw new InvalidIndexException(String.format("Invalid index%d", index));
         }
         return (T) elements[index];
     }
@@ -30,7 +30,7 @@ public class GenericArrayRepository<T extends Base> implements GenericAllReposit
     public Integer getById(T id) {
         for (int i = 0; i < elements.length; i++) {
             if (elements[i] != null && elements[i] == id)
-                return (Integer) elements[i].getId();
+                return elements[i].getId();
         }
         return null;
     }
@@ -63,23 +63,24 @@ public class GenericArrayRepository<T extends Base> implements GenericAllReposit
     }
 
     @Override
-    public void remove(int index) {
-        if (isIndexInvalid(index)) return;
+    public void remove(int index) throws InvalidIndexException {
+        if (isIndexInvalid(index)) {
+            throw new InvalidIndexException(String.format("Invalid index%d", index));
+        }
         elements[index] = null;
         shift(index);
     }
 
     @Override
-    public void remove(T element) {
+    public void remove(T element) throws InvalidIndexException {
         int index = find(element);
         if (index == -1) {
-            return;
+            throw new InvalidIndexException("The element to be searched for does not exist in the array");
         }
         remove(index);
     }
 
-    public void removeAllElement(T element) {
-
+    public void removeAllElement(T element) throws InvalidIndexException {
         if (element != null) {
             for (int i = 0; i < elements.length; i++) {
                 remove(element);
@@ -126,9 +127,9 @@ public class GenericArrayRepository<T extends Base> implements GenericAllReposit
         return -1;
     }
 
-    public void update(int index, T element) {
+    public void update(int index, T element) throws InvalidIndexException {
         if (isIndexInvalid(index)) {
-            return;
+            throw new InvalidIndexException(String.format("Invalid index%d", index));
         }
         elements[index] = element;
     }
@@ -178,13 +179,10 @@ public class GenericArrayRepository<T extends Base> implements GenericAllReposit
 
     @Override
     public void print() {
-        for (Base str : elements) {
-            try {
-                System.out.println(str.getId());
-            } catch (Exception e) {
-                return;
+        for (Base element : elements) {
+            if (element != null) {
+                System.out.println(element.getId());
             }
-
         }
     }
 }

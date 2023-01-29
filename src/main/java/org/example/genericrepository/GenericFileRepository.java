@@ -33,13 +33,9 @@ public class GenericFileRepository<T> implements GenericAllRepository<T> {
 
     @Override
     public void add(T element) {
-        try {
-            FileWriter fileWriter = new FileWriter(file, true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        try (FileWriter fileWriter = new FileWriter(file, true); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
             bufferedWriter.append(element + "\n");
             bufferedWriter.flush();
-            bufferedWriter.close();
-            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("Exception in file writing", e);
@@ -91,8 +87,7 @@ public class GenericFileRepository<T> implements GenericAllRepository<T> {
     public void shift(int index) {
         int line = 0;
         String currentLine;
-        try (FileReader fileReader = new FileReader(file);
-             BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+        try (FileReader fileReader = new FileReader(file); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             String content = "";
             while ((currentLine = bufferedReader.readLine()) != null) {
                 line++;
@@ -114,8 +109,7 @@ public class GenericFileRepository<T> implements GenericAllRepository<T> {
 
     @Override
     public void print() {
-        try (FileReader fileReader = new FileReader(file);
-             BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+        try (FileReader fileReader = new FileReader(file); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             String line;
             String s = "";
             while ((line = bufferedReader.readLine()) != null) {
@@ -130,8 +124,7 @@ public class GenericFileRepository<T> implements GenericAllRepository<T> {
 
     @Override
     public void deleteContent() {
-        try (FileWriter fileWriter = new FileWriter(file);
-             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+        try (FileWriter fileWriter = new FileWriter(file); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
             bufferedWriter.write("");
             bufferedWriter.flush();
         } catch (IOException e) {
